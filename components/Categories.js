@@ -1,8 +1,19 @@
 import { ScrollView } from "react-native";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import CategoryCard from "./CategoryCard";
+import SanityClient, { urlFor } from "../sanity";
 
 const Categories = () => {
+  const [Categories, setCategories] = useState([]);
+  useEffect(() => {
+    SanityClient.fetch(
+      `
+      *[_type == "category"]
+      `
+    ).then((data)=>{
+      setCategories(data)
+    })
+  }, []);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -13,30 +24,13 @@ const Categories = () => {
       showsHorizontalScrollIndicator={false}
     >
       {/*Category Card*/}
-      <CategoryCard
-        imgUrl="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2FPhoto%2FRecipes%2F2020-10-twv-crispy-fall-tofu-bowl%2FTheKitchnFallTofuBowl_Option2"
-        title="Testing 1 " 
+      {Categories?.map(category=>(
+        <CategoryCard
+        key={category._id}
+        imgUrl={urlFor(category.image).url()}
+        title={category.name}
       />
-      <CategoryCard
-        imgUrl="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2FPhoto%2FRecipes%2F2020-10-twv-crispy-fall-tofu-bowl%2FTheKitchnFallTofuBowl_Option2"
-        title="Testing 2 "
-      />
-      <CategoryCard
-        imgUrl="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2FPhoto%2FRecipes%2F2020-10-twv-crispy-fall-tofu-bowl%2FTheKitchnFallTofuBowl_Option2"
-        title="Testing 3 "
-      />
-      <CategoryCard
-        imgUrl="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2FPhoto%2FRecipes%2F2020-10-twv-crispy-fall-tofu-bowl%2FTheKitchnFallTofuBowl_Option2"
-        title="Testing 3 "
-      />
-      <CategoryCard
-        imgUrl="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2FPhoto%2FRecipes%2F2020-10-twv-crispy-fall-tofu-bowl%2FTheKitchnFallTofuBowl_Option2"
-        title="Testing 3 "
-      />
-      <CategoryCard
-        imgUrl="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2FPhoto%2FRecipes%2F2020-10-twv-crispy-fall-tofu-bowl%2FTheKitchnFallTofuBowl_Option2"
-        title="Testing 3 "
-      />
+      ))}
     </ScrollView>
   );
 };
