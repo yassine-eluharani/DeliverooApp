@@ -4,7 +4,7 @@ import Currency from "react-currency-formatter";
 import { urlFor } from "../sanity";
 import { MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { addToBasket, removeFromBasket, selectBasketItems, selectBasketItemsWithId } from "../features/basketSlice";
+import { addToBasket, removeFromBasket, selectBasketItemsWithId } from "../features/basketSlice";
 
 const DishRow = ({ id, name, description, price, image }) => {
   const [IsPressed, setIsPressed] = useState(false);
