@@ -14,7 +14,7 @@ const BasketScreen = () => {
   const restaurant = useSelector(selectRestaurant);
   const items = useSelector(selectBasketItems);
   const basketTotal = useSelector(selectBasketTotal)
-  const [GroupedItemsInBasket, setGroupedItemsInBasket] = useState();
+  const [GroupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
