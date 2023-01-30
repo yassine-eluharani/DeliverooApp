@@ -32,12 +32,12 @@ const HomeScreen = () => {
       },
     }
     `
-    ).then((data) => {
-      setFeaturedCategory(data);
-    });
+    )
+      .then((data) => {
+        setFeaturedCategory(data);
+      })
+      .catch((e) => console.log("Error from catch"));
   }, []);
-  
-  
   return (
     <View className="bg-white pt-10">
       {/*Header*/}
@@ -75,7 +75,6 @@ const HomeScreen = () => {
       <ScrollView className="bg-gray-100">
         {/* Categories */}
         <Categories />
-
         {/* Featured Rows */}
         {featuredCategory?.map((category) => (
           <FeaturedRow
